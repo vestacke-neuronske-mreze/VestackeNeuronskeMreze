@@ -1,1 +1,1 @@
-# VestackeNeuronskeMreze
+# Veštačke neuronske mreže
