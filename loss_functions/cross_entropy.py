@@ -22,6 +22,7 @@ class CrossEntropy(LossFunction):
         if not self.one_hot:
             t = to_one_hot(t, y.shape[-1])
         if self.from_logits:
+            y = Softmax()(y)
             return (y - t) / t.shape[0]
         else:
             return -t/(y * y.shape[0])
