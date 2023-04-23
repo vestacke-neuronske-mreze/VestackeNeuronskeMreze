@@ -4,6 +4,7 @@ from backend.backend import xp
 from sklearn.datasets import load_iris, load_wine
 
 from data_scalers.scalers import MinMaxScaler
+from layers.activation_functions.softmax import Softmax
 from models.feedforward_nn import Model
 from layers.activation_functions.leakyReLU import LeakyReLU
 from layers.dense_layer import DenseLayer
@@ -87,11 +88,11 @@ def test_multiclass_classification(use_dataset: UseDataset = UseDataset.MNIST):
     # ili ćemo prosto samo dodati kros entropiju kao kriterijumsku funkciju, a bez dodavanja aktivacionog sloja sa softmax aktiv.
     # funkcijom (preporučeni pristup)
 
-    # network.add_layer(Softmax())
-    # network.set_loss_function(CrossEntropy(with_softmax=False))
+    model.add_layer(Softmax())
+    model.set_loss(CrossEntropy(from_logits=False))
 
     # ili, možemo da prethodne dve linije stavimo u komentar i iskoristimo narednu liniju:
-    model.set_loss(CrossEntropy(from_logits=True, one_hot=True))
+    # model.set_loss(CrossEntropy(from_logits=True, one_hot=True))
 
     model.set_optimizer(Adam(nesterov=True))
     model.fit(train_data, print_every=2, batch_size=64,
